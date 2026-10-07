@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------------------------------
+   Rally AI design tokens. Light: warm off-white + near-black text. Dark: deep charcoal.
+   Accent: a restrained tennis green; secondary: cool blue. Evidence colours are shared with
+   the camera overlay (green ok / amber watch / red issue / gray insufficient).
+   ------------------------------------------------------------------------------------------ */
+:root {
+  color-scheme: light;
+  --bg: #f5f4ef;
+  --bg-2: #ecebe5;
+  --surface: #ffffff;
+  --fg: #0d0d0f;
+  --fg-2: #5f5f66;
+  --fg-3: #8a8a91;
+  --accent: #2b8a4f;
+  --accent-strong: #1f6f3d;
+  --accent-soft: rgba(43, 138, 79, 0.12);
+  --accent-2: #3a78d6;
+  --accent-2-soft: rgba(58, 120, 214, 0.12);
+  --glass: rgba(255, 255, 255, 0.62);
+  --glass-strong: rgba(255, 255, 255, 0.84);
+  --glass-solid: #ffffff;
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --hairline: rgba(13, 13, 15, 0.08);
+  --shadow-glass: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 8px 32px rgba(20, 20, 30, 0.08), 0 1px 2px rgba(20, 20, 30, 0.06);
+  --shadow-lift: 0 18px 50px rgba(20, 20, 30, 0.14);
+  --ok: #248a3d;
+  --watch: #b26f00;
+  --issue: #d70015;
+  --insufficient: #7d7d83;
+  --ok-soft: rgba(52, 199, 89, 0.14);
+  --watch-soft: rgba(255, 176, 32, 0.18);
+  --issue-soft: rgba(255, 69, 58, 0.13);
+  --insufficient-soft: rgba(142, 142, 147, 0.16);
+  --radius: 22px;
+  --ambient-1: rgba(43, 138, 79, 0.1);
+  --ambient-2: rgba(58, 120, 214, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0c0d0f;
+    --bg-2: #16171a;
+    --surface: #1a1b1f;
+    --fg: #f3f3f5;
+    --fg-2: #a3a3ab;
+    --fg-3: #74747c;
+    --accent: #4cc27a;
+    --accent-strong: #6fd796;
+    --accent-soft: rgba(76, 194, 122, 0.14);
+    --accent-2: #6aa8ff;
+    --accent-2-soft: rgba(106, 168, 255, 0.14);
+    --glass: rgba(34, 36, 40, 0.58);
+    --glass-strong: rgba(40, 42, 47, 0.84);
+    --glass-solid: #1d1e22;
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --hairline: rgba(255, 255, 255, 0.08);
+    --shadow-glass: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 10px 40px rgba(0, 0, 0, 0.45);
+    --shadow-lift: 0 24px 60px rgba(0, 0, 0, 0.55);
+    --ok: #30d158;
+    --watch: #ffb020;
+    --issue: #ff6961;
+    --insufficient: #8e8e93;
+    --ambient-1: rgba(76, 194, 122, 0.07);
+    --ambient-2: rgba(106, 168, 255, 0.06);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0c0d0f;
+  --bg-2: #16171a;
+  --surface: #1a1b1f;
+  --fg: #f3f3f5;
+  --fg-2: #a3a3ab;
+  --fg-3: #74747c;
+  --accent: #4cc27a;
+  --accent-strong: #6fd796;
+  --accent-soft: rgba(76, 194, 122, 0.14);
+  --accent-2: #6aa8ff;
+  --accent-2-soft: rgba(106, 168, 255, 0.14);
+  --glass: rgba(34, 36, 40, 0.58);
+  --glass-strong: rgba(40, 42, 47, 0.84);
+  --glass-solid: #1d1e22;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --shadow-glass: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 10px 40px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 24px 60px rgba(0, 0, 0, 0.55);
+  --ok: #30d158;
+  --watch: #ffb020;
+  --issue: #ff6961;
+  --insufficient: #8e8e93;
+  --ambient-1: rgba(76, 194, 122, 0.07);
+  --ambient-2: rgba(106, 168, 255, 0.06);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-2-soft: var(--accent-2-soft);
+  --color-hairline: var(--hairline);
+  --color-ok: var(--ok);
+  --color-watch: var(--watch);
+  --color-issue: var(--issue);
+  --color-insufficient: var(--insufficient);
+  --color-ok-soft: var(--ok-soft);
+  --color-watch-soft: var(--watch-soft);
+  --color-issue-soft: var(--issue-soft);
+  --color-insufficient-soft: var(--insufficient-soft);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, var(--ambient-1), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, var(--ambient-2), transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--fg);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------------------------------------------
+   Glass surfaces
+   ------------------------------------------------------------------------------------------ */
+@utility glass {
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility glass-strong {
+  background: var(--glass-strong);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-glass);
+}
+
+/* glass over live video: always dark, always legible */
+@utility glass-dark {
+  background: rgba(18, 18, 20, 0.5);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* Reduced transparency: solid surfaces (user setting or OS preference) */
+:root[data-transparency="reduced"] .glass,
+:root[data-transparency="reduced"] .glass-strong {
+  background: var(--glass-solid);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:root[data-transparency="reduced"] .glass-dark {
+  background: rgba(18, 18, 20, 0.92);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-strong {
+    background: var(--glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------------------------------
+   Typography helpers
+   ------------------------------------------------------------------------------------------ */
+.display {
+  font-family: var(--font-display);
+  letter-spacing: -0.028em;
+  font-weight: 700;
+}
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--fg-3);
+}
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+/* Safe areas */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-2) 0%, var(--hairline) 50%, var(--bg-2) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 14px;
+}
+
+@keyframes rec-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.rec-dot {
+  animation: rec-pulse 1.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Video scrubber */
+input[type="range"].scrubber {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 28px;
+  width: 100%;
+}
+input[type="range"].scrubber::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--hairline);
+}
+input[type="range"].scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: var(--fg);
+  margin-top: -7px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+input[type="range"].scrubber::-moz-range-track {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--hairline);
+}
+input[type="range"].scrubber::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  border: none;
+  border-radius: 50%;
+  background: var(--fg);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
